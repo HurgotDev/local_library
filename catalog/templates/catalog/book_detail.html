@@ -1,0 +1,43 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}{{ book.title }} - LocalLibrary{% endblock %}
+
+{% block content %}
+<h1>Titulo: {{ book.title }}</h1>
+
+{% if perms.catalog.change_book and perms.catalog.delete_book %}
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a href="{{ book.get_absolute_url }} " class="nav-link text-danger mr-2">Eliminar</a>
+  </li>
+  <li class="nav-item">
+    <a href="{{ book.get_absolute_url }}" class="nav-link btn-secondary rounded">Editar</a>
+  </li>
+</ul>
+{% endif %}
+
+<p><strong>Autor:</strong><a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p>
+<p><strong>Resumen:</strong> {{ book.summary }}</p>
+<p><strong>ISBN:</strong> {{ book.isbn }}</p>
+<p><strong>Idioma:</strong> {{ book.language }}</p>
+<p>
+  <strong>Género:</strong>
+  {% for genre in book.genre.all %}
+  {{ genre }}
+  {% if not forloop.last %},{% endif %}
+  {% endfor %}
+</p>
+
+<div style="margin-left:20px;margin-top:20px;">
+  <h4>Copias</h4>
+  {% for copy in book.bookinstance_set.all %}
+  <hr>
+  <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">{{ copy.get_status_display }}</p>
+  {% if copy.status != 'a' %}
+  <p><strong>Fecha de devolución:</strong> {{ copy.due_back }}</p>
+  {% endif %}
+  <p><strong>Ipresion:</strong> {{ copy.imprint }}</p>
+  <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+  {% endfor %}
+</div>
+{% endblock %}

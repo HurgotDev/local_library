@@ -1,0 +1,24 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Autores - Locallibrary{% endblock %}
+
+{% block content %}
+<h1>Autores</h1>
+{% if perms.catalog.can_add_author %}
+<ul class="nav justify-content-end">
+  <li class="nav-intem">
+    <a href="{% url 'author-create' %}" class="nav-link btn-secondary rounded">Nuevo autor</a>
+  </li>
+</ul>
+{% endif %}
+<ul>
+  {% for author in author_list %}
+  <li><a href="{{ author.get_absolute_url }}">
+    {{ author }}
+    {% if author.date_of_birth and author.date_of_death %}
+    ({{ author.date_of_birth }} - {{ author.date_of_death }})
+    {% endif %}
+  </a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Libros - LocalLibrary{% endblock %}
+
+{% block content %}
+<h1>Lista de libros</h1>
+
+{% if perms.catalog.add_book %}
+<ul class="nav justify-content-end">
+  <li class="nav-item"><a href="{% url 'book-create' %}" class="nav-link btn-secondary rounded">Nuevo libro</a></li>
+</ul>
+{% endif %}
+
+{% if book_list %}
+<ul>
+
+  {% for book in book_list %}
+  <li>
+    <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.author }})
+  </li>
+  {% endfor %}
+
+</ul>
+{% else %}
+<p>La libreria está vacia</p>
+{% endif %}
+
+{% endblock %}

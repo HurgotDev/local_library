@@ -1,0 +1,14 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}{{ title_window }} - LocalLibrary{% endblock %}
+
+{% block content %}
+<h1>{{ title_page }}</h1>
+<form class="" action="" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Enviar">
+</form>
+{% endblock %}

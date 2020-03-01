@@ -1,0 +1,29 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}
+Inicio - LocalLibrary
+{% endblock %}
+
+{% block content %}
+<h1>Iniciio libreria local</h1>
+
+<p>Bienvenido a <em>LocalLibrary</em>, un sitio web muy básico de Django desarrollado como un ejemplo tutorial en la red de desarrolladores de Mozilla.</p>
+
+<h2>Contenido dinámico</h2>
+<p>La biblioteca tiene los siguientes recuentos de registros:</p>
+<ul>
+  <li><strong>Libros:</strong> {{ num_books }}</li>
+  <li><strong>Copias:</strong> {{ num_instances }}</li>
+  <li><strong>Copias disponibles:</strong> {{ num_instances_available }}</li>
+  <li><strong>Autores:</strong> {{ num_authors }}</li>
+  <li>
+    <strong>Géneros:</strong>
+    <ul>
+      {% for genre, total in genre_count.items %}
+      <li><strong>{{ genre }}:</strong> {{ total }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>
+<p>Tu has visitado esta página {{ num_visits }} ve{{ num_visits|pluralize:'z,ces' }}</p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Libros prestados - Locallibrary{% endblock %}
+
+{% block content %}
+<h1>Libros prestados</h1>
+<ul>
+  {% for bookinst in bookinstance_list %}
+  <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+    <a href="{{ bookinst.book.get_absolute_url }}">{{ bookinst.book }}</a>
+    ({{ bookinst.due_back }}) - {{ bookinst.borrower }}
+    {% if perms.catalog.can_mark_returned %} - <a href="{% url 'renew-book-librarian' bookinst.id %}">Renovar</a>{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

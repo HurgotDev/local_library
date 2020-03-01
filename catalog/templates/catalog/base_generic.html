@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <title>{% block title %}Locallibrary{% endblock %}</title>
+  </head>
+  <body>
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-sm-2">
+          {% block sidebar %}
+          <ul class="sidebar-nav">
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'books' %}">Libros</a></li>
+            <li><a href="{% url 'authors' %}">Autores</a></li>
+            <hr>
+            {% if user.is_authenticated %}
+            <li>Usuario: {{ user.get_username }}</li>
+            {% if perms.catalog.can_mark_returned %}
+              <li><a href="{% url 'loaned-books' %}">Libros prestados</a></li>
+            {% else %}
+              <li><a href="{% url 'my-borrowed' %}">Mis libros prestados</a></li>
+            {% endif %}
+            <hr>
+            <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+            {% endif %}
+          </ul>
+          {% endblock %}
+        </div>
+        <div class="col-sm-10">
+          {% block content %}{% endblock %}
+
+          {% block pagination %}
+            {% if is_paginated %}
+            <div class="pagination">
+              <span class="page-links">
+                {% if page_obj.has_previous %}
+                <a href="{{ request.paht }}?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span class="page-current">
+                  Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+              </span>
+            </div>
+            {% endif %}
+          {% endblock %}
+        </div>
+      </div>
+
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</html>

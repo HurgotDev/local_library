@@ -1,0 +1,17 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Renovar libro - Locallibrary{% endblock %}
+
+{% block content %}
+<h1>Renovar: {{ bookinst.book }}</h1>
+<p>Prestatario: {{ bookinst.borrower }}</p>
+<p {% if bookinst.is_overdue %}class="text-danger"{% endif %}>Fecha de retorno: {{ bookinst.due_back }}</p>
+
+<form action="" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+  <input type="submit" value="Enviar">
+</form>
+{% endblock %}

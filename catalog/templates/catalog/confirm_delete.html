@@ -1,0 +1,16 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}{{ title_window }} - LocalLibrary{% endblock %}
+
+{% block content %}
+
+<h1>{{ title_page }}</h1>
+
+<p>¿{{ confirm_message }}: {{ object }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" action="" value="Sí, borrar." />
+</form>
+
+{% endblock %}

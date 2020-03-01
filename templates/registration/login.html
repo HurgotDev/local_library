@@ -1,0 +1,38 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Ingresar - LocalLibrary {% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<p class="text-danger">El usuario o la contraseña ingresada no son correctos.</p>
+{%endif%}
+
+{% if next %}
+{% if user.is_authenticated %}
+<p>No tienes acceso a esta página. Por favor ingresa con una cuenta que tenga acceso</p>
+{% else %}
+<p>Por favor ingresa para ver esta pagina.</p>
+{% endif %}
+{% endif %}
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  <div>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+  </div>
+  <div>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+  </div>
+  <div>
+    <input type="submit" value="Ingresar">
+    <input type="hidden" name="next" value="{{ next }}">
+  </div>
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<p><a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a></p>
+
+{% endblock %}

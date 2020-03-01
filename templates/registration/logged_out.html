@@ -1,0 +1,8 @@
+{% extends 'catalog/base_generic.html' %}
+
+{% block title %}Salida - LocalLibrary{% endblock %}
+
+{% block content %}
+<p>Usted ha terminado la sesión.</p>
+<a href="{% url 'login' %}">Click aquí para ingresar nuevamente.</a>
+{% endblock %}
