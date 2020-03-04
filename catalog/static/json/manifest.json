@@ -1,0 +1,7 @@
+{
+  "short_name": "LocalLibrary amaze app",
+  "Name": "LocalLibrary",
+  "start_url": "/catalog",
+  "display": "standalone",
+  "orientation": "landscape"
+}
