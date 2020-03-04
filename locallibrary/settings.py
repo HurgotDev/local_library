@@ -27,7 +27,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'a+w8b%77h&0)tk0j+%r9bf$2(n7dg&
 # DEBUG = True
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['https://immense-atoll-74486.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'xhurgot.pythonanywhere.com', 
+    '127.0.0.1:8000'
+]
 
 
 # Application definition
